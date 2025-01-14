@@ -1,0 +1,53 @@
+<!-- views/jobs/show.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/show.css" />
+
+    <title>
+        <%= job.title %>
+    </title>
+</head>
+<!-- views/jobs/show.ejs -->
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+        <div class="show-body">
+            <div class="show-header">
+                <h1>
+                    <%= job.title %> at <%= job.company %>
+                </h1>
+                <div class="show-sidebar">
+                    <div class="show-actions">
+                        <a href="/users/<%= user._id %>/jobs/<%= job._id %>/edit">
+                            Edit App
+                        </a>
+                        <form action="/users/<%= user._id %>/jobs/<%= job._id %>?_method=DELETE" method="POST">
+                            <button type="submit">Delete App</button>
+                        </form>
+                    </div>
+                    <p>Current Status: <%= job.status %>
+                    </p>
+                </div>
+            </div>
+            <div class="show-jobdesc-container">
+                <% if (job.postingLink) { %>
+                    <a href="<%= job.postingLink %>" target="_blank">View job posting</a>
+                    <% } %>
+                        <% if (job.jobdesc) { %>
+                            <div class="show-jobdesc">
+                                <h2>Job Description:</h2>
+                                <p>
+                                    <%= job.jobdesc %>
+                                </p>
+                            </div>
+                            <% } %>
+            </div>
+        </div>
+</body>
+
+</html>

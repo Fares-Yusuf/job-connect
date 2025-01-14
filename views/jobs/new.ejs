@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
+    <title>Add a New App</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+        <h1>CREATE JOB POST</h1>
+
+        <div class="new-body">
+            <form action="/users/<%= user._id %>/jobs" method="POST">
+                <label for="companyName">Company Name:</label>
+                <input type="text" name="companyName" id="companyName" />
+                <label for="location">Location:</label>
+                <input type="text" name="location" id="location" />
+                <label for="jobTitle">Job Title:</label>
+                <input type="text" name="jobTitle" id="jobTitle" />
+                <label for="jobDesc">Job Description:</label>
+                <textarea name="jobDesc" id="jobDesc"></textarea>
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+
+                <button type="submit">CREATE</button>
+            </form>
+
+</body>
+
+</html>

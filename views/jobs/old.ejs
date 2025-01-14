@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Old Job Posts</title>
+</head>
+
+<body>
+    <h1>Filled Job Posts</h1>
+    <div class="job-listings">
+        <% if (jobs && jobs.length> 0) { %>
+            <% jobs.filter(job=> job.inactive).forEach(job => { %>
+                <div class="job-post">
+                    <h2>
+                        <%= job.title %>
+                    </h2>
+                    <p class="company">
+                        <%= job.company %>
+                    </p>
+                    <p class="location">
+                        <%= job.location %>
+                    </p>
+                    <p class="description">
+                        <%= job.description %>
+                    </p>
+                    <p class="date">Posted: <%= new Date(job.createdAt).toLocaleDateString() %>
+                    </p>
+                    <p class="status">Status: Inactive</p>
+                </div>
+                <% }); %>
+                    <% } else { %>
+                        <p>No inactive job posts found.</p>
+                        <% } %>
+    </div>
+    <a href="/jobs" class="back-button">Back to Active Listings</a>
+</body>
+
+</html>
