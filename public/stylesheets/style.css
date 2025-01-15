@@ -9,14 +9,14 @@ body {
     flex-direction: column;
     height: 100vh;
     width: 100vw;
-    background-color: #9ac2ef;
+    background-color: #b4d3f6;
     margin: 0%;
 }
 
 /* public/stylesheets/style.css */
 
 .index-body {
-    background-image: url('https://img.freepik.com/free-photo/rocket-taking-off-boost-symbol-ai-generated-image_268835-6577.jpg');
+    background-image: url('https://t3.ftcdn.net/jpg/02/27/64/36/360_F_227643697_wQEqPFyvZEvjnomWrW6XvkH6q1Jj4Feq.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
