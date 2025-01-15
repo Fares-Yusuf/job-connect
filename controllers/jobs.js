@@ -93,16 +93,28 @@ router.put('/:jobId', isSignedIn, isAdmin, async (req, res) => {
 // Apply for a job (Users only)
 router.post('/:jobId/apply', isSignedIn, async (req, res) => {
     try {
-        const job = await Job.findById(req.params.jobId);
-        const currentUser = await User.findById(req.session.user._id);
+        // Prevent admins from applying
+        if (req.session.user.userType === 'admin') {
+            return res.status(403).send('Admins cannot apply for jobs.');
+        }
 
+        const job = await Job.findById(req.params.jobId);
         if (!job || job.status !== 'active') {
             return res.status(400).send('Job is not available.');
         }
 
+        const currentUser = await User.findById(req.session.user._id);
+
+        // Check if the user has already applied
+        if (job.applicants.some(app => app.user.toString() === currentUser._id)) {
+            return res.status(400).send('You have already applied to this job.');
+        }
+
+        // Add the user to the job's applicant list
         job.applicants.push({ user: currentUser._id, status: 'pending' });
         await job.save();
 
+        // Add the job to the user's list of applied jobs
         currentUser.jobs.push({ job: job._id, status: 'pending' });
         await currentUser.save();
 
@@ -135,6 +147,49 @@ router.patch('/:jobId/applicants/:applicantId', isSignedIn, isAdmin, async (req,
         }
 
         res.redirect(`/jobs/${req.params.jobId}`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Edit user information
+router.get('/user/edit', isSignedIn, async (req, res) => {
+    try {
+        const user = await User.findById(req.session.user._id);
+        res.render('users/edit.ejs', { user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.post('/user/edit', isSignedIn, async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.session.user._id,
+            {
+                linkedin: req.body.linkedin,
+                github: req.body.github
+            },
+            { new: true }
+        );
+
+        req.session.user.linkedin = updatedUser.linkedin;
+        req.session.user.github = updatedUser.github;
+
+        res.redirect('/jobs');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+router.get('/my-applications', isSignedIn, async (req, res) => {
+    try {
+        const userApplications = await Job.find({ 'applicants.user': req.session.user._id })
+            .populate('applicants.user');
+        
+        res.render('jobs/my-applications.ejs', { applications: userApplications });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
