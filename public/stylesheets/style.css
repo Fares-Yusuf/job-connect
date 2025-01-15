@@ -85,8 +85,7 @@ body {
 
 /* public/stylesheets/style.css */
 
-.signin-container,
-.signup-container {
+.signin-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -98,18 +97,52 @@ body {
 h1 {
     color: #1c2e5b;
 }
-
 form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 20em;
-    height: 50%;
+    align-items: center;
+    width: 100%;
+    max-width: 20em;
+    height: auto;
     background-color: #f6e7e7;
     padding: 30px 40px 20px 40px;
     border-radius: 20px;
     color: #4b598e;
     font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4b598e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #374475;
 }
 
 input {

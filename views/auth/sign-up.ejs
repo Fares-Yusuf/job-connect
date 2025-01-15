@@ -13,18 +13,37 @@
   <%- include('../partials/_navbar.ejs') %>
     <div class="signup-container">
       <h1>Create a new account!</h1>
-      <p>JobConnect Where People and Jobs are Connected!</p>
+      <p>JobConnect: Where People and Jobs are Connected!</p>
       <form action="/auth/sign-up" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" />
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" />
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" />
+        <div class="form-row">
+          <div class="form-column">
+            <label for="fullName">Full Name:</label>
+            <input type="text" name="fullName" id="fullName" required />
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required />
+            <label for="linkedin">LinkedIn Profile (Optional):</label>
+            <input type="url" name="linkedin" id="linkedin" placeholder="https://linkedin.com/in/your-profile" />
+
+          </div>
+
+          <div class="form-column">
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required minlength="6" />
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" required minlength="6" />
+
+            <label for="github">GitHub Profile (Optional):</label>
+            <input type="url" name="github" id="github" placeholder="https://github.com/your-profile" />
+          </div>
+        </div>
+
         <button type="submit">Sign up</button>
       </form>
     </div>
-</body>
 
+</body>
 
 </html>
