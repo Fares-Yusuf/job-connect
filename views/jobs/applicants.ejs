@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Applicants for <%= job.jobTitle %>
+    </title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+
+        <div class="applicants-container">
+            <h1>Applicants for <%= job.jobTitle %> at <%= job.companyName %>
+            </h1>
+
+            <% if (job.applicants.length> 0) { %>
+                <table class="applicants-table">
+                    <thead>
+                        <tr>
+                            <th>Applicant Name</th>
+                            <th>Email</th>
+                            <th>LinkedIn</th>
+                            <th>GitHub</th>
+                            <th>Application Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% job.applicants.forEach(applicant=> { %>
+                            <tr>
+                                <td>
+                                    <%= applicant.user.fullName %>
+                                </td>
+                                <td>
+                                    <%= applicant.user.email %>
+                                </td>
+                                <td>
+                                    <% if (applicant.user.linkedin) { %>
+                                        <a href="<%= applicant.user.linkedin %>" target="_blank">LinkedIn</a>
+                                        <% } else { %>
+                                            N/A
+                                            <% } %>
+                                </td>
+                                <td>
+                                    <% if (applicant.user.github) { %>
+                                        <a href="<%= applicant.user.github %>" target="_blank">GitHub</a>
+                                        <% } else { %>
+                                            N/A
+                                            <% } %>
+                                </td>
+                                <td>
+                                    <%= applicant.status %>
+                                </td>
+                                <td>
+                                    <form
+                                        action="/jobs/<%= job._id %>/applicants/<%= applicant.user._id %>?_method=PATCH"
+                                        method="POST">
+                                        <select name="status">
+                                            <option value="pending" <%=applicant.status==='pending' ? 'selected' : '' %>
+                                                >Pending</option>
+                                            <option value="approved" <%=applicant.status==='approved' ? 'selected' : ''
+                                                %>>Approved</option>
+                                            <option value="declined" <%=applicant.status==='declined' ? 'selected' : ''
+                                                %>>Declined</option>
+                                        </select>
+                                        <button type="submit" class="update-status-button">Update</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+                <% } else { %>
+                    <p>No applicants found for this job.</p>
+                    <% } %>
+
+                        <a href="/jobs/<%= job._id %>" class="back-button">Back to Job Details</a>
+        </div>
+</body>
+
+</html>

@@ -46,11 +46,21 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
 router.get('/:jobId', isSignedIn, async (req, res) => {
     try {
         const job = await Job.findById(req.params.jobId).populate('applicants.user');
+        res.render('jobs/show.ejs', { job });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
-        const userJob = await User.findById(req.session.user._id).populate('jobs.job');
-        const userStatus = userJob.jobs.find(app => app.job._id.toString() === req.params.jobId)?.status;
-
-        res.render('jobs/show.ejs', { job, userStatus });
+// View applicants for a specific job (Admins only)
+router.get('/:jobId/applicants', isSignedIn, isAdmin, async (req, res) => {
+    try {
+        const job = await Job.findById(req.params.jobId).populate('applicants.user');
+        if (!job) {
+            return res.status(404).send('Job not found.');
+        }
+        res.render('jobs/applicants.ejs', { job });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
@@ -184,11 +194,12 @@ router.post('/user/edit', isSignedIn, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
 router.get('/my-applications', isSignedIn, async (req, res) => {
     try {
         const userApplications = await Job.find({ 'applicants.user': req.session.user._id })
             .populate('applicants.user');
-        
+
         res.render('jobs/my-applications.ejs', { applications: userApplications });
     } catch (error) {
         console.error(error);

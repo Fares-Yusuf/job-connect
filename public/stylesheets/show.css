@@ -18,13 +18,14 @@ body {
     align-items: center;
 }
 
+/* 
 .show-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 90%;
-}
+} */
 
 .show-header>h1 {
     color: #1c2e5b;
@@ -43,17 +44,20 @@ body {
 
 button {
     padding: 8px 10px;
-    background-color: #ce4866;
+    background-color: #4b598e;
     color: white;
     border-radius: 30px;
     border: none;
     font-size: 1.1em;
     width: 10em;
     margin: 5px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
 }
 
 button:hover {
-    background-color: #e84a6c;
+    background-color: #1c2e5b;
+    cursor: pointer;
 }
 
 .show-actions>a {
@@ -82,9 +86,25 @@ p {
 }
 
 .show-jobdesc-container {
-    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     margin: 20px 0;
+    text-align: center;
 }
+
+.show-jobdesc {
+    background-color: #f6e7e7;
+    width: 100dvw;
+    /* Restrict the width for better centering */
+    border-radius: 20px;
+    padding: 40px;
+    margin: 0 auto;
+    text-align: left;
+    /* Ensure the text inside is aligned left */
+}
+
 
 .show-jobdesc-container>a {
     text-decoration: none;
@@ -96,14 +116,6 @@ p {
 
 .show-jobdesc-container>a:hover {
     color: #4b598e;
-}
-
-.show-jobdesc {
-    background-color: #f6e7e7;
-    width: 85%;
-    border-radius: 20px;
-    padding: 40px 40px 20px 40px;
-    margin: 20px 10px;
 }
 
 h2 {
@@ -118,3 +130,33 @@ h2 {
     font-size: 1.2em;
 }
 
+
+.show-job-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.show-header {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.delete-job-button {
+    background-color: #ce4866;
+}
+
+.edit-job-link:hover {
+    background-color: #374475;
+}
+
+.delete-job-button:hover {
+    background-color: #e84a6c;
+}
+
+h2 {
+    color: #4b598e;
+}
