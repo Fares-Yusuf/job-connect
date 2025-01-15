@@ -6,27 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
 
-    <title>Job Jobs</title>
+    <title>Active Job Postings</title>
 </head>
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
-        <!-- views/jobs/index.ejs -->
-        <div class="all-apps-body">
-            <div class="all-apps-header">
-                <h1>ACTIVE JOB POSTINGS</h1>
-                <a class="add-app-link" href="/users/<%=user._id%>/jobs/new">Create an Job</a>
+
+        <div class="jobs-container">
+            <div class="jobs-header">
+                <h1>Active Job Postings</h1>
             </div>
-            <ul>
-                <% jobs.forEach((app)=> { %>
-                    <a href="/users/<%= user._id %>/jobs/<%= app.job._id %>">
-                        <li>
-                            <%= app.job.title %> at <%= app.job.company %> - Status: <%= app.status %>
-                        </li>
-                    </a>
+
+            <ul class="jobs-list">
+                <% jobs.forEach((job)=> { %>
+                    <li class="job-item">
+                        <a href="/jobs/<%= job._id %>" class="job-link">
+                            <h2>
+                                <%= job.jobTitle %>
+                            </h2>
+                            <p>Company: <%= job.companyName %>
+                            </p>
+                            <p>Location: <%= job.location %>
+                            </p>
+                        </a>
+                    </li>
                     <% }) %>
             </ul>
+
+            <% if (user && user.userType==='admin' ) { %>
+                <a class="create-job-button" href="/jobs/new">Create a New Job</a>
+                <% } %>
         </div>
+
 </body>
 
 </html>

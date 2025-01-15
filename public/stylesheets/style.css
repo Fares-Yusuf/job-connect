@@ -85,7 +85,7 @@ body {
 
 /* public/stylesheets/style.css */
 
-.signin-container{
+.signin-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +96,9 @@ body {
 
 h1 {
     color: #1c2e5b;
+    margin: 0 auto;
 }
+
 form {
     display: flex;
     flex-direction: column;
@@ -112,6 +114,7 @@ form {
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .signup-container {
     display: flex;
     flex-direction: column;
@@ -253,4 +256,120 @@ select {
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+
+.jobs-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.jobs-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.jobs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.job-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: box-shadow 0.3s;
+    background-color: #f6e7e7;
+}
+
+.job-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.job-link {
+    text-decoration: none;
+    color: #333;
+}
+
+.job-link h2 {
+    margin: 0 0 10px;
+}
+
+.create-job-button {
+    display: flex;
+    width: fit-content;
+    padding: 10px 20px;
+    background-color: #4b598e;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+    align-self: center;
+    margin: 0 auto;
+}
+
+.create-job-button:hover {
+    background-color: #374475;
+}
+
+/* Specific Styles for New Job Page */
+.new-job-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+.new-job-container h1 {
+    margin-bottom: 20px;
+    color: #1c2e5b;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.new-job-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #f6e7e7;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.new-job-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #4b598e;
+}
+
+.new-job-form input,
+.new-job-form textarea,
+.new-job-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.new-job-form textarea {
+    resize: vertical;
+}
+
+.new-job-form button {
+    padding: 10px;
+    background-color: #4b598e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.new-job-form button:hover {
+    background-color: #374475;
 }
