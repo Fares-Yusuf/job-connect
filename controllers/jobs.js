@@ -41,6 +41,16 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+router.get('/my-applications', isSignedIn, async (req, res) => {
+    try {
+        const userApplications = await Job.find({ 'applicants.user': req.session.user._id })
+            .populate('applicants.user'); // Populate user references in applicants
+        res.render('jobs/my-applications.ejs', { applications: userApplications });
+    } catch (error) {
+        console.error('Error fetching applications:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // View details of a specific job
 router.get('/:jobId', isSignedIn, async (req, res) => {
@@ -128,7 +138,7 @@ router.post('/:jobId/apply', isSignedIn, async (req, res) => {
         currentUser.jobs.push({ job: job._id, status: 'pending' });
         await currentUser.save();
 
-        res.redirect(`/jobs/${job._id}`);
+        res.redirect(`/jobs/`);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
@@ -189,18 +199,6 @@ router.post('/user/edit', isSignedIn, async (req, res) => {
         req.session.user.github = updatedUser.github;
 
         res.redirect('/jobs');
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-router.get('/my-applications', isSignedIn, async (req, res) => {
-    try {
-        const userApplications = await Job.find({ 'applicants.user': req.session.user._id })
-            .populate('applicants.user');
-
-        res.render('jobs/my-applications.ejs', { applications: userApplications });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

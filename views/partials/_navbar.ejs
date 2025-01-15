@@ -7,8 +7,13 @@
         <div class="navbar">
             <h1 id="nav-header">JobConnect</h1>
             <div class="nav-links">
-                <a class="authlink" href="/users/<%=user._id%>/jobs">Your Apps</a>
-                <a class="authlink" href="/auth/sign-out">Sign Out</a>
+                <% if (user.userType==='admin' ) { %>
+                    <a class="authlink" href="/jobs">Active Jobs</a>
+                    <a class="authlink" href="/jobs/inactive">Inactive Jobs</a>
+                    <% } else { %>
+                        <a class="authlink" href="/jobs/my-applications">My Applications</a>
+                        <% } %>
+                            <a class="authlink" href="/auth/sign-out">Sign Out</a>
             </div>
         </div>
         <% } else { %>

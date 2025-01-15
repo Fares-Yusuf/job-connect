@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>My Applications</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+
+        <div class="applications-container">
+            <h1>My Applications</h1>
+
+            <% if (applications.length> 0) { %>
+                <ul class="applications-list">
+                    <% applications.forEach(application=> { %>
+                        <% const userApplication=application.applicants.find(app=> app.user && app.user._id.toString()
+                            === user._id.toString()); %>
+                            <li class="application-item">
+                                <h2>
+                                    <%= application.jobTitle %> at <%= application.companyName %>
+                                </h2>
+                                <% if (userApplication) { %>
+                                    <p>Status: <strong>
+                                            <%= userApplication.status %>
+                                        </strong></p>
+                                    <% } else { %>
+                                        <p>Status: Not Found</p>
+                                        <% } %>
+                                            <a href="/jobs/<%= application._id %>" class="details-link">View Job
+                                                Details</a>
+                            </li>
+
+                            <% }); %>
+                </ul>
+                <% } else { %>
+                    <p>You have not applied to any jobs yet.</p>
+                    <% } %>
+        </div>
+
+        <style>
+            .applications-container {
+                padding: 20px;
+                max-width: 800px;
+                margin: auto;
+                text-align: center;
+            }
+
+            .applications-list {
+                list-style: none;
+                padding: 0;
+            }
+
+            .application-item {
+                margin-bottom: 20px;
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #f6e7e7;
+            }
+
+            .application-item h2 {
+                margin: 0 0 10px;
+                color: #4b598e;
+            }
+
+            .application-item p {
+                margin: 5px 0;
+            }
+
+            .details-link {
+                text-decoration: none;
+                color: #4b598e;
+                font-weight: bold;
+            }
+
+            .details-link:hover {
+                color: #374475;
+            }
+        </style>
+</body>
+
+</html>

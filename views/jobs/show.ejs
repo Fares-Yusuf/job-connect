@@ -23,18 +23,28 @@
                 <% if (user && user.userType==='admin' ) { %>
                     <div class="show-actions">
                         <a href="/jobs/<%= job._id %>/edit">Edit Job</a>
-                        
+
                         <form action="/jobs/<%= job._id %>?_method=DELETE" method="POST">
-                            <button type="submit" >Delete Job</button>
+                            <button type="submit">Delete Job</button>
                         </form>
                         <a href="/jobs/<%= job._id %>/applicants">View Applicants</a>
                         <a href="/jobs" class="back-button">Back</a>
                     </div>
-                    <% } %>
+                    <% } else if (user && user.userType==='user' ) { %>
+                        <% const hasApplied=job.applicants.some(app=> app.user.toString() === user._id); %>
+                            <% if (!hasApplied) { %>
+                                <form action="/jobs/<%= job._id %>/apply" method="POST" class="apply-form">
+                                    <button type="submit" class="apply-button">Apply</button>
+                                    <a href="/jobs" class="back-button">Back</a>
+                                </form>
+                                <% } else { %>
+                                    <p>You have already applied for this job.</p>
+                                    <% } %>
+                                        <% } %>
 
-                        <p>Current Status: <strong>
-                                <%= job.status %>
-                            </strong></p>
+                                            <p>Current Status: <strong>
+                                                    <%= job.status %>
+                                                </strong></p>
             </div>
 
             <div class="show-jobdesc-container">
