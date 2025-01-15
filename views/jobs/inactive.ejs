@@ -5,42 +5,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+
     <title>Inactive Job Posts</title>
 </head>
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
 
-        <div class="inactive-job-container">
-            <h1>Inactive Job Posts</h1>
-
-            <div class="job-listings">
-                <% if (jobs && jobs.length> 0) { %>
-                    <% jobs.forEach(job=> { %>
-                        <div class="job-post">
-                            <h2>
-                                <%= job.jobTitle %>
-                            </h2>
-                            <p class="company">Company: <%= job.companyName %>
-                            </p>
-                            <p class="location">Location: <%= job.location %>
-                            </p>
-                            <p class="description">Description: <%= job.jobDesc %>
-                            </p>
-                            <p class="date">Posted: <%= new Date(job.createdAt).toLocaleDateString() %>
-                            </p>
-                            <p class="status">Status: Inactive</p>
-                            <form action="/jobs/<%= job._id %>/activate?_method=PUT" method="POST">
-                                <button type="submit" class="activate-job-button">Reactivate Job</button>
-                            </form>
-                        </div>
-                        <% }); %>
-                            <% } else { %>
-                                <p>No inactive job posts found.</p>
-                                <% } %>
+        <div class="jobs-container">
+            <div class="jobs-header">
+                <h1>Inactive Job Posts</h1>
             </div>
 
-            <a href="/jobs" class="back-button">Back to Active Listings</a>
+            <% if (jobs.length> 0) { %>
+                <ul class="jobs-list">
+                    <% jobs.forEach((job)=> { %>
+                        <li class="job-item">
+                            <a href="/jobs/<%= job._id %>" class="job-link">
+                                <h2>
+                                    <%= job.jobTitle %>
+                                </h2>
+                                <p>Company: <%= job.companyName %>
+                                </p>
+                                <p>Location: <%= job.location %>
+                                </p>
+                            </a>
+                        </li>
+                        <% }); %>
+                </ul>
+                <% } else { %>
+                    <p>No inactive jobs available at the moment. Please check back later.</p>
+                    <% } %>
+
+                        <a href="/jobs" class="back-button">Back to Active Listings</a>
         </div>
 
 </body>

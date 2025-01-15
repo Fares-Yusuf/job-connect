@@ -17,25 +17,29 @@
                 <h1>Active Job Postings</h1>
             </div>
 
-            <ul class="jobs-list">
-                <% jobs.forEach((job)=> { %>
-                    <li class="job-item">
-                        <a href="/jobs/<%= job._id %>" class="job-link">
-                            <h2>
-                                <%= job.jobTitle %>
-                            </h2>
-                            <p>Company: <%= job.companyName %>
-                            </p>
-                            <p>Location: <%= job.location %>
-                            </p>
-                        </a>
-                    </li>
-                    <% }) %>
-            </ul>
+            <% if (jobs.length> 0) { %>
+                <ul class="jobs-list">
+                    <% jobs.forEach((job)=> { %>
+                        <li class="job-item">
+                            <a href="/jobs/<%= job._id %>" class="job-link">
+                                <h2>
+                                    <%= job.jobTitle %>
+                                </h2>
+                                <p>Company: <%= job.companyName %>
+                                </p>
+                                <p>Location: <%= job.location %>
+                                </p>
+                            </a>
+                        </li>
+                        <% }); %>
+                </ul>
+                <% } else { %>
+                    <p>No jobs available for application at the moment. Please check back later.</p>
+                    <% } %>
 
-            <% if (user && user.userType==='admin' ) { %>
-                <a class="create-job-button" href="/jobs/new">Create a New Job</a>
-                <% } %>
+                        <% if (user && user.userType==='admin' ) { %>
+                            <a class="create-job-button" href="/jobs/new">Create a New Job</a>
+                            <% } %>
         </div>
 
 </body>

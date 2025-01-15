@@ -7,13 +7,23 @@ const isAdmin = require('../middleware/is-admin');
 // Fetch all active jobs for users
 router.get('/', isSignedIn, async (req, res) => {
     try {
-        const activeJobs = await Job.find({ status: 'active' });
+        // Fetch jobs the user has applied to
+        const userApplications = await Job.find({ 'applicants.user': req.session.user._id }).select('_id');
+        const appliedJobIds = userApplications.map(job => job._id);
+
+        // Fetch active jobs excluding the applied ones
+        const activeJobs = await Job.find({ 
+            status: 'active', 
+            _id: { $nin: appliedJobIds } // Exclude jobs the user applied to
+        });
+
         res.render('jobs/index.ejs', { jobs: activeJobs });
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching active jobs:', error);
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 // Fetch all inactive jobs for admins
 router.get('/inactive', isSignedIn, isAdmin, async (req, res) => {
@@ -44,7 +54,7 @@ router.post('/', isSignedIn, isAdmin, async (req, res) => {
 router.get('/my-applications', isSignedIn, async (req, res) => {
     try {
         const userApplications = await Job.find({ 'applicants.user': req.session.user._id })
-            .populate('applicants.user'); // Populate user references in applicants
+            .populate('applicants.user');
         res.render('jobs/my-applications.ejs', { applications: userApplications });
     } catch (error) {
         console.error('Error fetching applications:', error);

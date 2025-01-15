@@ -35,7 +35,7 @@
                             <% if (!hasApplied) { %>
                                 <form action="/jobs/<%= job._id %>/apply" method="POST" class="apply-form">
                                     <button type="submit" class="apply-button">Apply</button>
-                                    <a href="/jobs" class="back-button">Back</a>
+                                    <a href="/jobs" class="btnLink">Back</a>
                                 </form>
                                 <% } else { %>
                                     <p>You have already applied for this job.</p>

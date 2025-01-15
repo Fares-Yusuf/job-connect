@@ -339,6 +339,7 @@ select {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .new-job-form label {
     margin-bottom: 5px;
     font-weight: bold;
@@ -373,6 +374,7 @@ select {
 .new-job-form button:hover {
     background-color: #374475;
 }
+
 .inactive-job-container {
     padding: 20px;
     max-width: 800px;
@@ -413,17 +415,20 @@ select {
 }
 
 .back-button {
-    display: inline-block;
-    margin-top: 20px;
+    margin: 0 auto;
     padding: 10px 20px;
-    background-color: #ce4866;
+    background-color: #e84a6c;
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    display: flex;
+    width: fit-content;
+    text-align: center;
+    align-self: center;
 }
 
 .back-button:hover {
-    background-color: #e84a6c;
+    background-color: #ce4866;
 }
 
 
