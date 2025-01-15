@@ -24,6 +24,38 @@ router.get('/', isSignedIn, async (req, res) => {
     }
 });
 
+router.get('/user/edit', isSignedIn, async (req, res) => {
+    try {
+        const user = await User.findById(req.session.user._id);
+        res.render('jobs/edit-profile.ejs', { user });
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.patch('/user/edit', isSignedIn, async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.session.user._id,
+            {
+                fullName: req.body.fullName,
+                linkedin: req.body.linkedin,
+                github: req.body.github,
+            },
+            { new: true }
+        );
+
+        req.session.user.fullName = updatedUser.fullName;
+        req.session.user.linkedin = updatedUser.linkedin;
+        req.session.user.github = updatedUser.github;
+
+        res.redirect('/jobs');
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // Fetch all inactive jobs for admins
 router.get('/inactive', isSignedIn, isAdmin, async (req, res) => {
@@ -177,38 +209,6 @@ router.patch('/:jobId/applicants/:applicantId', isSignedIn, isAdmin, async (req,
         }
 
         res.redirect(`/jobs/${req.params.jobId}`);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-// Edit user information
-router.get('/user/edit', isSignedIn, async (req, res) => {
-    try {
-        const user = await User.findById(req.session.user._id);
-        res.render('users/edit.ejs', { user });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-router.post('/user/edit', isSignedIn, async (req, res) => {
-    try {
-        const updatedUser = await User.findByIdAndUpdate(
-            req.session.user._id,
-            {
-                linkedin: req.body.linkedin,
-                github: req.body.github
-            },
-            { new: true }
-        );
-
-        req.session.user.linkedin = updatedUser.linkedin;
-        req.session.user.github = updatedUser.github;
-
-        res.redirect('/jobs');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

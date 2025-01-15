@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
+    <title>Edit Profile</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+
+        <div class="edit-profile-container">
+            <h1>Edit Your Profile</h1>
+            <form action="/jobs/user/edit?_method=PATCH" method="POST">
+                <label for="fullName">Full Name:</label>
+                <input type="text" name="fullName" id="fullName" value="<%= user.fullName %>" required />
+
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" value="<%= user.username %>" required disabled />
+
+                <label for="linkedin">LinkedIn Profile:</label>
+                <input type="url" name="linkedin" id="linkedin" value="<%= user.linkedin || '' %>"
+                    placeholder="https://linkedin.com/in/your-profile" />
+
+                <label for="github">GitHub Profile:</label>
+                <input type="url" name="github" id="github" value="<%= user.github || '' %>"
+                    placeholder="https://github.com/your-profile" />
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+
+        <style>
+            .edit-profile-container {
+                max-width: 600px;
+                margin: auto;
+                padding: 20px;
+                text-align: center;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            input {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 1em;
+            }
+
+            button {
+                padding: 10px;
+                background-color: #4b598e;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 1em;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #374475;
+            }
+        </style>
+</body>
+
+</html>
