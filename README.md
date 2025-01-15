@@ -5,11 +5,7 @@
 ## Description
 JobConnect is a web application designed to bridge the gap between job seekers and employers. It provides an intuitive platform for users to explore active job postings, track applications, and manage their profiles, while admins can efficiently handle job listings and applicant evaluations.
 
-## Getting Started
-🌐 [Visit JobConnect](https://example.com/jobconnect)  
-📋 [Trello Board](https://trello.com/b/example/jobconnect-development)
-
-### Installation
+## Installation
 1. Clone the repository:
    ```bash
    git clone https://github.com/example/jobconnect.git
